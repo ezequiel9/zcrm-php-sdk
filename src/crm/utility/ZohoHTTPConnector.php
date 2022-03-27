@@ -65,6 +65,10 @@ class ZohoHTTPConnector
         }
         $result = curl_exec($curl_pointer);
         $responseInfo = curl_getinfo($curl_pointer);
+        // Throw an exception if an error occurred. 
+        if ($result === false) {
+            throw new \Exception(curl_error($curl_pointer), curl_errno($curl_pointer));
+        }
         curl_close($curl_pointer);
         
         return array(
